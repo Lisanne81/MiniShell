@@ -6,7 +6,7 @@
 /*   By: lhoukes <lhoukes@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 07:48:55 by lhoukes       #+#    #+#                 */
-/*   Updated: 2022/10/11 11:40:12 by lhoukes       ########   odam.nl         */
+/*   Updated: 2022/10/14 11:19:10 by lhoukes       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,38 +92,42 @@ void operate_on_line(t_command **cmd_line, char *line)
 	// }
 }
 
-void	prompt_loop()
+void	init_lists(t_mini_data *input)
 {
-	char		*line;
+	input->cmd_lst = NULL;
+	input->tolken_lst = NULL;
+}
+
+void	prompt_loop(t_mini_data *input)
+{
+	// char		*line;
 	t_command	*cmd_line;
-	int			status;
-	int			index;
+	// int			status;
+	// int			index;
 
-	line = NULL;
-	status = 1;
-
+	cmd_line = NULL;
 	while ("the world turns")
 	{
-		// I guess this reads from the prompt:
-		line = readline(Y185"🐌mini🐚$ ");
-		index = 0;
-		if (line == NULL)
+	
+		init_lists(input);
+		input->cmd_input = readline(Y185"🐌mini🐚$ ");
+		//index = 0;
+		if (input->cmd_input == NULL)
 			exit_program("somthing went wrong\n", 1);
+		else if (input->cmd_input && input->cmd_input[0] != '\0')
+		{
+			lexer(input);
+		}
 		else
-			operate_on_line(&cmd_line, line);
-		//cmd_line = split(line);
-		// while (commands[index] != NULL)
-		// {
-		// 	printf(B17"LINE: [%s]\n", commands[index]);
-     	// 	index++;
-		// } 
-		// printf("[%d]history\n", add_history(line));
-		free(line);
+			operate_on_line(&cmd_line, input->cmd_input);
+		printf("&cmd_line[%p]\n", &cmd_line);
+		printf("input[%s]\n", input->cmd_input);
+		free(input->cmd_input);
 	} 
  
-	while (status)
-	{
+	// while (status)
+	// {
 		
-	}
+	// }
 	//return ();
 }

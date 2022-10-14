@@ -4,7 +4,7 @@ CC = gcc
 
 HEADERFILES = includes/minishell.h
 
-SRC_FILES = main.c prompt.c exit_message.c\
+SRC_FILES = main.c prompt.c exit_message.c lexer.c token_list.c\
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 OBJS = $(addprefix obj/, $(OBJ_FILES))

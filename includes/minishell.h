@@ -6,7 +6,7 @@
 /*   By: lhoukes <lhoukes@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 07:43:26 by lhoukes       #+#    #+#                 */
-/*   Updated: 2022/10/11 11:31:47 by lhoukes       ########   odam.nl         */
+/*   Updated: 2022/10/14 17:12:23 by lhoukes       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,22 @@
 # define G50 "\e[38;5;50m"
 # define RESET "\e[0m"
 
-
-# define NEW_LINE "\n"
-# define DOUBLE_QUOTES '"'
-# define SINGLE_QUOTES '\''
-
-typedef struct s_command
-{
-	char				*cmd_line;
-	struct s_command	*next;
-}						t_command;
+# define SPACE ' '
+# define WORD 1
+// # define NEW_LINE "\n"
+// # define DOUBLE_QUOTES '"'
+// # define SINGLE_QUOTES '\''
 
 typedef enum e_token
 {
-	WORD,
 	FILE_IN,
 	FILE_OUT,
 	PWD,
 	IS_PIPE,
 	IS_REDIRECT_IN,
 	IS_REDIRECT_OUT,
-	IS_ENVP,
-}	t_tolken;
-
+	IS_ENVP
+}	t_etoken;
 typedef enum quote
 {
 	NONE,
@@ -72,12 +65,50 @@ typedef enum quote
 	BACKSLASH,
 	END
 }	t_quote;
+typedef struct s_envp
+{
+	char			*envp_cmd;
+	char			*envp_value;
+	struct s_envp	*next;
+}	t_envp;
+
+typedef struct s_command
+{
+	char				*cmd_line;
+	struct s_command	*next;
+	struct s_command	*previous;
+	int					type;
+}						t_command;
+
+typedef struct s_token
+{
+	char			*value;
+	int				length;
+	t_etoken		id;
+	int				type;
+	t_quote			quote_type;
+	struct s_token	*next;
+	struct s_token	*prev;
+}	t_token;
+typedef struct s_mini_data
+{
+	char			*cmd_input;
+	char			**argv;
+	char			**envp;
+	//char			**paths;
+	int				argc;
+	t_token			*token_lst;
+	t_command		*cmd_lst;
+}	t_mini_data;
 //struct for PID?
 
 /* enum tokens */
 /* command list*/
 
-int	exit_program(char *message, int id);
-void	prompt_loop();
+int		exit_program(char *message, int id);
+void	prompt_loop(t_mini_data *input);
+void	lexer(t_mini_data *input);
+t_token	*add_new_token_back(t_token *token_node, char *command, int token_type);
+t_token	*new_token_lst(char *command, int token_type);
 
 #endif
