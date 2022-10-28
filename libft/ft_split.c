@@ -6,7 +6,7 @@
 /*   By: mevan-de <mevan-de@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/09 10:25:08 by mevan-de      #+#    #+#                 */
-/*   Updated: 2022/10/03 15:19:21 by mevan-de      ########   odam.nl         */
+/*   Updated: 2022/10/18 14:24:30 by lhoukes       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,3 +104,13 @@ char	**ft_split(char const *s, char c)
 	result[word_count] = 0;
 	return (result);
 }
+
+// split_sentence = split_op_spatie_enzo(input_line, specials)
+// while(split[i])
+// {
+// 	token->word = split[i]
+// 	if( special)
+// 		token->type = die special
+// 	else
+// 		token->type = word;
+// }

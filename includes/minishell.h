@@ -6,7 +6,7 @@
 /*   By: lhoukes <lhoukes@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 07:43:26 by lhoukes       #+#    #+#                 */
-/*   Updated: 2022/10/14 17:12:23 by lhoukes       ########   odam.nl         */
+/*   Updated: 2022/10/28 09:32:14 by lhoukes       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdlib.h>
-# include "./libft/libft.h"
+# include "../libft/libft.h"
+# include <stdbool.h>
 //# include <signal.h>
 //# include <sys/wait.h>
 
@@ -49,13 +50,11 @@
 
 typedef enum e_token
 {
-	FILE_IN,
-	FILE_OUT,
-	PWD,
 	IS_PIPE,
 	IS_REDIRECT_IN,
-	IS_REDIRECT_OUT,
-	IS_ENVP
+	IS_REDIRECT_OUT_TRUNC,
+	IS_REDIRECT_OUT_APPEND,
+	IS_WORD
 }	t_etoken;
 typedef enum quote
 {
@@ -65,40 +64,21 @@ typedef enum quote
 	BACKSLASH,
 	END
 }	t_quote;
-typedef struct s_envp
-{
-	char			*envp_cmd;
-	char			*envp_value;
-	struct s_envp	*next;
-}	t_envp;
-
-typedef struct s_command
-{
-	char				*cmd_line;
-	struct s_command	*next;
-	struct s_command	*previous;
-	int					type;
-}						t_command;
 
 typedef struct s_token
 {
 	char			*value;
-	int				length;
-	t_etoken		id;
-	int				type;
-	t_quote			quote_type;
-	struct s_token	*next;
-	struct s_token	*prev;
+	t_etoken		type;
 }	t_token;
 typedef struct s_mini_data
 {
 	char			*cmd_input;
 	char			**argv;
 	char			**envp;
-	//char			**paths;
+	char			**paths;
 	int				argc;
 	t_token			*token_lst;
-	t_command		*cmd_lst;
+	t_list			*token;
 }	t_mini_data;
 //struct for PID?
 
@@ -108,6 +88,12 @@ typedef struct s_mini_data
 int		exit_program(char *message, int id);
 void	prompt_loop(t_mini_data *input);
 void	lexer(t_mini_data *input);
+int		count_quote(char *line, char c);
+int		found_operator(char *line, int index);
+int		count_operator(char *input);
+void	isolate_operater(char *new_line, char *line, int *temp, int *index);
+char	*prep_line(char *line, int operator_count);
+char	 **split(char *str);
 t_token	*add_new_token_back(t_token *token_node, char *command, int token_type);
 t_token	*new_token_lst(char *command, int token_type);
 
