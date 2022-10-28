@@ -6,7 +6,7 @@
 /*   By: lhoukes <lhoukes@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 07:43:26 by lhoukes       #+#    #+#                 */
-/*   Updated: 2022/10/28 09:32:14 by lhoukes       ########   odam.nl         */
+/*   Updated: 2022/10/28 14:43:18 by lhoukes       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int		count_operator(char *input);
 void	isolate_operater(char *new_line, char *line, int *temp, int *index);
 char	*prep_line(char *line, int operator_count);
 char	 **split(char *str);
+void	print_list(t_list *tokens);
 t_token	*add_new_token_back(t_token *token_node, char *command, int token_type);
 t_token	*new_token_lst(char *command, int token_type);
 
