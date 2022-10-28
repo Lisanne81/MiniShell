@@ -6,7 +6,7 @@
 /*   By: lhoukes <lhoukes@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 14:40:15 by lhoukes       #+#    #+#                 */
-/*   Updated: 2022/10/28 14:50:45 by lhoukes       ########   odam.nl         */
+/*   Updated: 2022/10/28 14:54:13 by lhoukes       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,4 @@ void	print_list(t_list *tokens)
 		index++;
 		color++;
 	}
-	//free(tokens);
 }
