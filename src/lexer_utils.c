@@ -6,7 +6,7 @@
 /*   By: lhoukes <lhoukes@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 09:12:16 by lhoukes       #+#    #+#                 */
-/*   Updated: 2022/10/28 09:56:58 by lhoukes       ########   odam.nl         */
+/*   Updated: 2022/11/02 16:29:44 by lhoukes       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,12 @@ char	*prep_line(char *str, int operator_count)
 		if (found_operator(str, index))
 		{
 			isolate_operator(new_line, str, &index, &x);
-			printf(R124"in if statement found operater\n"RESET);
+			//printf(R124"in if statement found operater\n"RESET);
 		}
 		new_line[x] = str[index];
 		x++;
 		index++;
 	}
-	printf("line after going tru whitespace [%s]\n", new_line);
+	//printf("line after going tru whitespace [%s]\n", new_line);
 	return (new_line);
 }

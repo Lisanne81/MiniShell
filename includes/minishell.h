@@ -6,7 +6,7 @@
 /*   By: lhoukes <lhoukes@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 07:43:26 by lhoukes       #+#    #+#                 */
-/*   Updated: 2022/10/28 14:43:18 by lhoukes       ########   odam.nl         */
+/*   Updated: 2022/11/02 16:27:42 by lhoukes       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,20 @@
 # define RESET "\e[0m"
 
 # define SPACE ' '
-# define WORD 1
+//# define WORD 1
 // # define NEW_LINE "\n"
 // # define DOUBLE_QUOTES '"'
 // # define SINGLE_QUOTES '\''
 
 typedef enum e_token
 {
+	NOTHING,
 	IS_PIPE,
 	IS_REDIRECT_IN,
 	IS_REDIRECT_OUT_TRUNC,
 	IS_REDIRECT_OUT_APPEND,
+	HEREDOC,
+	ERROR,
 	IS_WORD
 }	t_etoken;
 typedef enum quote
@@ -88,6 +91,7 @@ typedef struct s_mini_data
 int		exit_program(char *message, int id);
 void	prompt_loop(t_mini_data *input);
 void	lexer(t_mini_data *input);
+void	lexer_input(t_mini_data *data);
 int		count_quote(char *line, char c);
 int		found_operator(char *line, int index);
 int		count_operator(char *input);
@@ -95,7 +99,8 @@ void	isolate_operater(char *new_line, char *line, int *temp, int *index);
 char	*prep_line(char *line, int operator_count);
 char	 **split(char *str);
 void	print_list(t_list *tokens);
-t_token	*add_new_token_back(t_token *token_node, char *command, int token_type);
 t_token	*new_token_lst(char *command, int token_type);
+void	delete_token_list(void *content);
+
 
 #endif

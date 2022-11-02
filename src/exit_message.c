@@ -6,7 +6,7 @@
 /*   By: lhoukes <lhoukes@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 07:52:50 by lhoukes       #+#    #+#                 */
-/*   Updated: 2022/10/11 10:45:00 by lhoukes       ########   odam.nl         */
+/*   Updated: 2022/11/02 16:28:29 by lhoukes       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,13 @@ int	exit_program(char *message, int id)
 	return (0);
 }
 
-// void	free_map(t_map *map)
-// {
-// 	t_map	*temp;
+void	delete_token_list(void *content)
+{
+	t_token	*token;
 
-// 	if (map == NULL)
-// 		return ;
-// 	while (map != NULL)
-// 	{
-// 		temp = map;
-// 		map = map->next;
-// 		free(temp);
-// 	}
-// }
+	token = (t_token *)content;
+	free(token->value);
+	//free(token->type);// hoe deze te verwijderen?
+	free(content);
+	content = NULL;
+}

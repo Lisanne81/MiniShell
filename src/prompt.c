@@ -6,22 +6,11 @@
 /*   By: lhoukes <lhoukes@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 07:48:55 by lhoukes       #+#    #+#                 */
-/*   Updated: 2022/10/28 09:09:00 by lhoukes       ########   odam.nl         */
+/*   Updated: 2022/11/02 16:27:22 by lhoukes       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	operate_on_line(t_mini_data *input)
-{
-	printf(" in operate on line\n");
-	// if (count_quote(input->cmd_input, '\"') != 0)
-	// 	exit_program("oneven quotes\n", 1);
-	// if (count_quote(input->cmd_input, '\'') != 0)
-	// 	exit_program("oneven quotes\n", 1);
-	printf("we gaan door\n");
-	lexer(input);
-}
 
 void	prompt_loop(t_mini_data *input)
 {
@@ -32,8 +21,11 @@ void	prompt_loop(t_mini_data *input)
 		if (input->cmd_input == NULL)
 			exit_program("somthing went wrong\n", 1);
 		if (input->cmd_input)
+		{
 			add_history(input->cmd_input);
-		operate_on_line(input);
-		printf(G42"input[%s]\n"RESET, input->cmd_input);
+		}
+		lexer_input(input);
+		print_list(input->token);
+		ft_lstclear(&input->token, delete_token_list);
 	}
 }
